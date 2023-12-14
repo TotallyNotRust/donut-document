@@ -1,7 +1,3 @@
-# Link til tutorial jeg har fulgt:
-# https://github.com/NielsRogge/Transformers-Tutorials/blob/master/Donut/CORD/Fine_tune_Donut_on_a_custom_dataset_(CORD)_with_PyTorch_Lightning.ipynb
-
-# Jeg bruger donut modellen, som kan parse dokumenter, uden at skulle bruge ocr.
 
 
 from datasets import load_dataset
@@ -83,6 +79,7 @@ def main():
     print(pixel_values.shape)
     print("VALIDATOR DONE")
 
+    print("Start training")
     train_config = {"max_epochs":30,
           "val_check_interval":0.2, # how many times we want to validate during an epoch
           "check_val_every_n_epoch":1,
@@ -116,6 +113,8 @@ def main():
     )
 
     trainer.fit(model_module)
+
+    print("Training complete")
         
 
 
