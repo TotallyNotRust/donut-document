@@ -12,13 +12,14 @@ from pytorch_lightning.utilities import rank_zero_only
 
 
 class DonutModelPLModule(pl.LightningModule):
-    def __init__(self, config, processor, model, train_dataloader,  val_dataloader):
+    def __init__(self, config, processor, model, train_dataloader,  val_dataloader, max_length):
         super().__init__()
         self.config = config
         self.processor = processor
         self.model = model
         self.__train_dataloader = train_dataloader
         self.__val_dataloader = val_dataloader
+        self.max_length = max_length
 
 
     def training_step(self, batch, batch_idx):
@@ -37,7 +38,7 @@ class DonutModelPLModule(pl.LightningModule):
         
         outputs = self.model.generate(pixel_values,
                                    decoder_input_ids=decoder_input_ids,
-                                   max_length=max_length,
+                                   max_length=self.max_length,
                                    early_stopping=True,
                                    pad_token_id=self.processor.tokenizer.pad_token_id,
                                    eos_token_id=self.processor.tokenizer.eos_token_id,

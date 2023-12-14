@@ -97,12 +97,13 @@ def main():
           "result_path": "./result",
           "verbose": True,
           }
-    model_module = DonutModelPLModule(train_config, processor, model, train_dataloader, val_dataloader)
+    model_module = DonutModelPLModule(train_config, processor, model, train_dataloader, val_dataloader, max_length)
 
     early_stop_callback = EarlyStopping(monitor="val_edit_distance", patience=3, verbose=False, mode="min")
 
     trainer = pl.Trainer(
             accelerator="cpu",
+            # accelerator = "gpu", # uncomment to use gpu
             devices=1,
             max_epochs=train_config.get("max_epochs"),
             val_check_interval=train_config.get("val_check_interval"),
