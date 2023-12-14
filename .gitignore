@@ -1,0 +1,5 @@
+lib/
+share/
+lightning_logs/
+bin/
+__pycache__/
