@@ -11,7 +11,21 @@ import pytorch_lightning as pl
 from model import DonutDataset
 from lightningmodule import DonutModelPLModule
 
+import sys
+import argparse
+
 def main():
+
+    # find what accelerator to use, can be either cpu, gpu or cuda
+    # by default use cpu as that will work on all systems
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-a", "--accelerator", help="Set accelerator", default="cpu", required=False)
+
+    args = parser.parse_args()
+
+    accelerator = args.accelerator
+
     dataset = load_dataset("naver-clova-ix/cord-v2")
 
     example = dataset['train'][0]
@@ -50,34 +64,17 @@ def main():
 
     model.config.pad_token_id = processor.tokenizer.pad_token_id
     model.config.decoder_start_token_id = processor.tokenizer.convert_tokens_to_ids([''])[0]
-
-
-
-    # sanity check
-    print("Pad token ID:", processor.decode([model.config.pad_token_id]))
-    print("Decoder start token ID:", processor.decode([model.config.decoder_start_token_id]))
-        
     
     # feel free to increase the batch size if you have a lot of memory
     # I'm fine-tuning on Colab and given the large image size, batch size > 1 is not feasible
     train_dataloader = DataLoader(train_dataset, batch_size=1, shuffle=True, num_workers=4)
     val_dataloader = DataLoader(val_dataset, batch_size=1, shuffle=False, num_workers=4)
-    print("DATALOADER INIT")
     batch = next(iter(train_dataloader))
     pixel_values, labels, target_sequences = batch
-    print(pixel_values.shape)
-    for id in labels.squeeze().tolist()[:30]:
-        if id != -100:
-            print(processor.decode([id]))
-        else:
-            print(id)
 
-    print("DATALOADER DONE")
     # let's check the first validation batch
     batch = next(iter(val_dataloader))
     pixel_values, labels, target_sequences = batch
-    print(pixel_values.shape)
-    print("VALIDATOR DONE")
 
     print("Start training")
     train_config = {"max_epochs":30,
@@ -99,8 +96,7 @@ def main():
     early_stop_callback = EarlyStopping(monitor="val_edit_distance", patience=3, verbose=False, mode="min")
 
     trainer = pl.Trainer(
-            accelerator="cpu",
-            # accelerator = "gpu", # uncomment to use gpu
+            accelerator = accelerator,
             devices=1,
             max_epochs=train_config.get("max_epochs"),
             val_check_interval=train_config.get("val_check_interval"),

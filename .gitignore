@@ -3,3 +3,5 @@ share/
 lightning_logs/
 bin/
 __pycache__/
+Scripts/
+pyvenv.cfg
