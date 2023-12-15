@@ -4,7 +4,12 @@ It should give me information about what was purchased, how much each item cost,
 
 I will be using the Donut model to accomplish this task. I have chosen this model because it can scan documents much faster as it doesnt use OCR scanning like most other document scanning models. \
 
-In this example ive used Pytorch Lightning for training, which is an easy to use deep learning training library
+The Donut model is a deep learning model, this is of course because it uses a neural net to understand and read images. \
+We use PyTorch Lightning in this project to train the model.
+
+I have looked at many other solutions to the same issue over the last few years, and all of them have chosen to use ai to accomplish this task. I doubt it would ever be feasible to do without. \
+
+You can find the model I trained at https://huggingface.co/TotallyNotRust/donut
 
 # Getting started
 

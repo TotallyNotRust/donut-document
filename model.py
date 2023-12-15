@@ -12,6 +12,8 @@ from transformers import DonutProcessor, VisionEncoderDecoderModel, VisionEncode
 
 added_tokens = []
 
+# This describes how the dataset should be stored
+
 class DonutDataset(Dataset):
     """ 
     PyTorch Dataset for Donut. This class takes a HuggingFace Dataset as input.

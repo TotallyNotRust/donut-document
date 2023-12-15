@@ -1,5 +1,3 @@
-
-
 from datasets import load_dataset
 from ast import literal_eval
 from transformers import DonutProcessor, VisionEncoderDecoderModel, VisionEncoderDecoderConfig

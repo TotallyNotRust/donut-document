@@ -10,6 +10,7 @@ from torch.optim.lr_scheduler import LambdaLR
 import pytorch_lightning as pl
 from pytorch_lightning.utilities import rank_zero_only
 
+# Lightning module describes to pytorch lightning, how to train the model.
 
 class DonutModelPLModule(pl.LightningModule):
     def __init__(self, config, processor, model, train_dataloader,  val_dataloader, max_length):
