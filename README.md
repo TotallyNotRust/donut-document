@@ -26,6 +26,9 @@ Then simply run (There is no gui, so it will train a new file if no model is fou
 By default "cpu" will be used.
 It is reccomended to use either "gpu" or "cuda" if your system supports it.
 
+To do a test run \
+````python3 scan.py -f [file name]``
+
 # Based on this tutorial
 https://github.com/NielsRogge/Transformers-Tutorials/blob/master/Donut/CORD/Fine_tune_Donut_on_a_custom_dataset_(CORD)_with_PyTorch_Lightning.ipynb
 

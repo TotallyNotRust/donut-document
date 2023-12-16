@@ -11,6 +11,18 @@ from donut import JSONParseEvaluator
 
 from datasets import load_dataset
 
+import argparse
+
+# find what accelerator to use, can be either cpu, gpu or cuda
+# by default use cpu as that will work on all systems
+parser = argparse.ArgumentParser()
+
+parser.add_argument("-f", "--file", help="Set file", default="invoice.png", required=False)
+
+args = parser.parse_args()
+
+image = Image.open(args.file).convert("RGB")
+
 processor = DonutProcessor.from_pretrained("TotallyNotRust/donut")
 model = VisionEncoderDecoderModel.from_pretrained("TotallyNotRust/donut")
 
@@ -24,7 +36,6 @@ accs = []
 
 dataset = load_dataset("naver-clova-ix/cord-v2", split="validation")
 
-image = Image.open("invoice.jpg").convert("RGB")
 pixel_values = processor(image, return_tensors="pt").pixel_values
 pixel_values = pixel_values.to(device)
 
