@@ -17,7 +17,6 @@ Run \
 ```
 python3 -m pip install transformers datasets sentencepiece donut-python pytorch-lightning wandb datasets
 ```
-(OBS. If you want to train your own model, you must first make your own model on hugging face, and then change all occurences of my model (TotallyNotRust/donut-model) in the code to the name of your model)
 
 Then simply run to train a new model. \
 ```python3 main.py [-a (accelerator)]```
