@@ -1,13 +1,13 @@
 # Case
 This ai should be able to read and understand invoices.\
-It should give me information about what was purchased, how much each item cost, how much tax was paid, which vendor sent the invoice, and as much other information as possible.\
+It should give me information about what was purchased, how much each item cost, how much tax was paid, which vendor sent the invoice, and as much other information as possible.
 
-I will be using the Donut model to accomplish this task. I have chosen this model because it can scan documents much faster as it doesnt use OCR scanning like most other document scanning models. \
+I will be using the Donut model to accomplish this task. I have chosen this model because it can scan documents much faster as it doesnt use OCR scanning like most other document scanning models. 
 
-The Donut model is a deep learning model, this is of course because it uses a neural net to understand and read images. \
+The Donut model is a supervised deep learning model, this is of course because it uses a neural net to understand and read images, and is trained on labeled data.\
 We use PyTorch Lightning in this project to train the model.
 
-I have looked at many other solutions to the same issue over the last few years, and all of them have chosen to use ai to accomplish this task. I doubt it would ever be feasible to do without. \
+I have looked at many other solutions to the same issue over the last few years, and all of them have chosen to use ai to accomplish this task. I doubt it would ever be feasible to do without. 
 
 You can find the model I trained at https://huggingface.co/TotallyNotRust/donut
 
@@ -17,16 +17,16 @@ Run \
 ```
 python3 -m pip install transformers datasets sentencepiece donut-python pytorch-lightning wandb datasets
 ```
+(OBS. If you want to train your own model, you must first make your own model on hugging face, and then change all occurences of my model (TotallyNotRust/donut-model) in the code to the name of your model)
 
-
-Then simply run (There is no gui, so it will train a new file if no model is found in the directory) \
+Then simply run to train a new model. \
 ```python3 main.py [-a (accelerator)]```
 
 -a or --accelerator can be passed to choose what accelerator to use, valid inputs are "cpu", "gpu" and "cuda".
 By default "cpu" will be used.
 It is reccomended to use either "gpu" or "cuda" if your system supports it.
 
-To do a test run \
+Then you can scan \
 ````python3 scan.py -f [file name]``
 
 # Based on this tutorial
